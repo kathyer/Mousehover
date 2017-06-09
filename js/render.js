@@ -153,43 +153,31 @@ function update()
 	// INTERSECTED = El objeto en la escena actualmente más cercana a la cámara e intersectado por el Rayo proyectado desde la posición del ratón.
 	
 	// Si hay una o más intersecciones (objetos encontrados con el ratón)
-	if ( intersects.length > 0 )
-	{
-		// Si el primer objeto encontrado es diferente del anterior encontrado
-		if (intersects[0].object != INTERSECTED)
-		{
-			// Restaura previamente el anterior al color del objeto original
-			if (INTERSECTED)
-			{
-				// INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
-				INTERSECTED.material = INTERSECTED.currentHex;
-			}
-			// store reference to closest object as current intersection object
-			INTERSECTED = intersects[0].object;
-
-			// store color of closest object (for later restoration)
-			//INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
-
-			for(var p =0; p < INTERSECTED.material.materials.length; p++)
-			{
-				INTERSECTED.currentHex = INTERSECTED.material.materials[p].emissive.getHex();
-			}
-
-			// set a new color for closest object
-			//INTERSECTED.material.color.setHex(0xffff00);
-		}
-	}
-	else // there are no intersections
-	{
-		// restore previous intersection object (if it exists) to its original color
-		if ( INTERSECTED )
-		{
-			INTERSECTED.material = INTERSECTED.currentHex;
-		}
-		// remove previous intersection object reference
-		//     by setting current intersection object to "nothing"
-		INTERSECTED = null;
-	}
+if ( intersects.length > 0 )
+    {
+        // if the closest object intersected is not the currently stored intersection object
+        if ( intersects[ 0 ].object != INTERSECTED ) 
+        {
+            // restore previous intersection object (if it exists) to its original color
+            if ( INTERSECTED ) 
+                INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+            // store reference to closest object as current intersection object
+            INTERSECTED = intersects[ 0 ].object;
+            // store color of closest object (for later restoration)
+            INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+            // set a new color for closest object
+            INTERSECTED.material.color.setHex( 0xffff00 );
+        }
+    } 
+    else // there are no intersections
+    {
+        // restore previous intersection object (if it exists) to its original color
+        if ( INTERSECTED ) 
+            INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+        // remove previous intersection object reference
+        //     by setting current intersection object to "nothing"
+        INTERSECTED = null;
+    }
 	controls.update();
 }
 
