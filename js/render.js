@@ -117,7 +117,7 @@ function mostrarPiso()
 		{
 			let material = new THREE.MultiMaterial(materials);
 			let object = new THREE.Mesh(geometry, material);
-			object.name = "pabellon";
+			object.name = "habitacion";
 			Escenario.add(object);
 		}
 	);
